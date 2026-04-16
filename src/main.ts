@@ -3,9 +3,9 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { GlobalExceptionFilter } from './global-exception-filter';
 import helmet from 'helmet';
-import { doubleCsrf } from 'csrf-csrf';
 import { RedisIoAdapter } from './redis/redis-io.adapter';
 import { getRedisUrl } from './redis/redis.constants';
+// import { doubleCsrf } from 'csrf-csrf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,11 +18,11 @@ async function bootstrap() {
     app.useWebSocketAdapter(redisAdapter);
   }
 
-  const { doubleCsrfProtection } = doubleCsrf({
-    getSecret: () => process.env.CSRF_SECRET ?? 'default-csrf-secret',
-    getSessionIdentifier: (req) => (req as any).ip ?? (req as any).socket?.remoteAddress ?? ''
-  });
-  app.use(doubleCsrfProtection);
+//   const { doubleCsrfProtection } = doubleCsrf({
+//     getSecret: () => process.env.CSRF_SECRET ?? 'default-csrf-secret',
+//     getSessionIdentifier: (req) => (req as any).ip ?? (req as any).socket?.remoteAddress ?? ''
+//   });
+//   app.use(doubleCsrfProtection);
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');

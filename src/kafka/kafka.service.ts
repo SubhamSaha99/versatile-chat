@@ -29,7 +29,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
     const env = configService.get<string>('DEV_ENV') || 'local';
     const kafkaBroker =
       env === 'container'
-        ? configService.get<string>('KAFKA_BROKER_URL_CONATINER')
+        ? configService.get<string>('KAFKA_BROKER_URL_CONTAINER')
         : configService.get<string>('KAFKA_BROKER_URL_LOCAL');
     this.kafka = new Kafka({
       brokers: [kafkaBroker || 'localhost:29092'],
